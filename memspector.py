@@ -92,21 +92,21 @@ class Memspector(object):
         except Exception:
             exception_occured = True
         except:
-            print '[!] command interrupted'
+            print('[!] command interrupted')
         finally:
             setprofile(None)
             threading_setprofile(None)
         if exception_occured:
-            print '[!] Exception occured'
+            print('[!] Exception occured')
             print_exc()
 
     def dump_diffs(self):
         for thread_name, thread_data in self.memdata._diffs.iteritems():
             for fn_name, fn_data in thread_data.iteritems():
-                print '{0:<60} thread: {1}'.format(fn_name, thread_name)
-                print '{0:^15}{1:^15}'.format('total memory', 'diff')
-                print '\n'.join('{0:15,}{1:15,}'.format(*x) for x in fn_data)
-                print
+                print('{0:<60} thread: {1}'.format(fn_name, thread_name))
+                print('{0:^15}{1:^15}'.format('total memory', 'diff'))
+                print('\n'.join('{0:15,}{1:15,}'.format(*x) for x in fn_data))
+                print()
 
 
 def argparser():

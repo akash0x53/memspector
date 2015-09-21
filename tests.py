@@ -1,6 +1,8 @@
 from memspector import Memspector, MAIN_THREAD_NAME
 import unittest
+import sys
 from datetime import datetime
+
 
 
 messages = []
@@ -28,7 +30,7 @@ import threading
 def a(): return
 def b(): return
 def launcher(fn, times):
-    for _ in xrange(times):
+    for _ in iter(range(times)):
         fn()
 t1 = threading.Thread(target=launcher, args=(a, 1))
 t2 = threading.Thread(target=launcher, args=(b, 1))
@@ -49,7 +51,7 @@ t2.join()
         time_before = datetime.now()
         ms.spectate('''
 def a(): return
-for _ in xrange(1000):
+for _ in iter(range(1000)):
     a()
 ''')
         time_after = datetime.now()
@@ -62,7 +64,7 @@ for _ in xrange(1000):
         time_before = datetime.now()
         ms.spectate('''
 def a(): return
-for _ in xrange(1000):
+for _ in iter(range(1000)):
     a()
 ''')
         time_after = datetime.now()
@@ -75,7 +77,7 @@ for _ in xrange(1000):
         time_before = datetime.now()
         ms.spectate('''
 def a(): return
-for _ in xrange(100000):
+for _ in iter(range(100000)):
     a()
 ''')
         time_after = datetime.now()
@@ -86,4 +88,4 @@ for _ in xrange(100000):
 
 if __name__ == '__main__':
     unittest.main(exit=False)
-    print '\n'.join(messages)
+    print('\n'.join(messages))
